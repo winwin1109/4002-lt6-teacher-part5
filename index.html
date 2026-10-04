@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>推廣信寫作特訓：架構背誦與轉化特訓 | 職業中文教室</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- 引入 Confetti 彩帶特效套件 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --bg-color: #f8fafc;
+            --text-main: #334155;
+            
+            /* 休閒體驗類色系 */
+            --leisure-main: #059669;
+            --hl-l-title: #d1fae5; 
+            --hl-l-lead: #a7f3d0; 
+            --hl-l-body: #ecfdf5; 
+            --hl-l-end: #f0fdf4;
+            
+            /* 科技產品類色系 */
+            --tech-main: #2563eb;
+            --hl-t-title: #dbeafe; 
+            --hl-t-lead: #bfdbfe; 
+            --hl-t-body: #eff6ff; 
+            --hl-t-end: #f8fafc;
+
+            /* 夾娃娃機(喵戰隊)色系 */
+            --cm-main: #ff9800;
+            --cm-dark: #e65100;
+            --cm-light: #ffb74d;
+        }
+
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; overflow-x: hidden; }
+        
+        /* --- Main Navigation & Global Score --- */
+        .main-nav { background: var(--primary); padding: 15px 20px; display: flex; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; justify-content: center; align-items: center;}
+        .main-nav-btn { background: rgba(255,255,255,0.1); border: 2px solid transparent; color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; touch-action: manipulation;}
+        .main-nav-btn:hover { background: rgba(255,255,255,0.2); }
+        .main-nav-btn.active { background: white; color: var(--primary); box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+        
+        .global-score-board { background: #fef08a; color: #b45309; padding: 8px 20px; border-radius: 30px; font-weight: 900; font-size: 1.2rem; border: 2px solid #facc15; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 5px; margin-left: auto;}
+        
+        /* --- Floating Score Animation --- */
+        .score-anim { position: absolute; font-weight: 900; font-size: 2rem; pointer-events: none; animation: floatUp 1s forwards; z-index: 9999; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .score-plus { color: #10b981; }
+        .score-minus { color: #ef4444; }
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.2); } }
+
+        .view-section { display: none; padding: 30px 20px; max-width: 1050px; margin: 0 auto; animation: fadeIn 0.4s ease-out;}
+        .view-section.active { display: block; }
+        
+        .page { background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 30px;}
+        h2.page-title { color: var(--primary); border-bottom: 3px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 1.8rem;}
+        
+        .game-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;}
+        .game-header h2.page-title { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+        .local-tools { display: flex; align-items: center; gap: 10px; }
+        .local-score-board { background: #e0f2fe; color: #0369a1; padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 2px solid #bae6fd; font-size: 1.1rem;}
+        .retry-btn { background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 1rem;}
+        .retry-btn:hover { background: #dc2626; transform: scale(1.05); }
+
+        /* --- Tabs (For Framework) --- */
+        .tab-container { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap;}
+        .tab-btn { flex: 1; min-width: 250px; padding: 15px; font-size: 1.2rem; font-weight: 900; border: none; border-radius: 10px 10px 0 0; cursor: pointer; transition: 0.3s; background: #f1f5f9; color: #64748b;}
+        .tab-btn.active[data-type="leisure"] { background: var(--leisure-main); color: white; box-shadow: 0 -4px 10px rgba(5, 150, 105, 0.2); }
+        .tab-btn.active[data-type="tech"] { background: var(--tech-main); color: white; box-shadow: 0 -4px 10px rgba(37, 99, 235, 0.2); }
+
+        .template-content { display: none; animation: fadeIn 0.4s ease-out; }
+        .template-content.active { display: block; }
+
+        /* --- Template Grid --- */
+        .template-grid { display: flex; flex-direction: column; gap: 15px; }
+        .t-row { background: white; border: 2px solid #cbd5e1; border-radius: 10px; overflow: hidden; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05);}
+        .t-header { padding: 12px 20px; font-weight: bold; color: #1e293b; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; border-bottom: 2px solid #e2e8f0; flex-wrap: wrap; gap: 10px;}
+        .t-content { padding: 20px; font-size: 1.1rem; line-height: 2.2; }
+        .t-blank { display: inline-block; border-bottom: 2px solid var(--accent); color: var(--accent); font-weight: bold; padding: 0 10px; min-width: 60px; text-align: center; background: #fffbeb; margin: 0 5px;}
+        
+        .johnson-box { border: 2px dashed #f59e0b; background: #fffdf5; padding: 15px; margin: 15px 0; border-radius: 8px;}
+        .aidca-badge { display: inline-block; padding: 2px 8px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; color: white; margin-left: 10px; vertical-align: middle;}
+        .bg-a { background: #f39c12; } .bg-i { background: #9b59b6; } .bg-d { background: #e74c3c; } .bg-c { background: #3498db; } .bg-act { background: #2ecc71; }
+
+        .self-improve-btn { background: #f59e0b; color: #fff; border: none; padding: 6px 15px; border-radius: 15px; font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 5px;}
+        .self-improve-btn:hover { background: #d97706; transform: scale(1.05); }
+
+        /* --- Game 1 & 2 Styles --- */
+        .game-step { border: 3px dashed #cbd5e1; border-radius: 15px; padding: 25px; margin-bottom: 20px; background: #f8fafc; display: none;}
+        .game-step.active { display: block; animation: fadeIn 0.5s; }
+        .step-title { color: var(--secondary); font-size: 1.4rem; margin-top: 0; border-bottom: 2px solid var(--secondary); padding-bottom: 10px; margin-bottom: 20px;}
+        
+        .game-split { display: flex; gap: 20px; flex-wrap: wrap; }
+        .raw-data-panel { flex: 1.2; min-width: 350px; background: #e2e8f0; padding: 20px; border-radius: 10px; box-shadow: inset 0 4px 6px rgba(0,0,0,0.05); display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-content: start;}
+        .structure-panel { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .doc-card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; font-size: 0.95rem; line-height: 1.6;}
+        .doc-title { font-weight: 900; color: #475569; border-bottom: 2px solid #cbd5e1; padding-bottom: 5px; margin-bottom: 10px; font-size: 1rem; display: flex; align-items: center; gap: 5px;}
+        
+        .doc-memo { background: #fef08a; border-left: 4px solid #facc15; transform: rotate(-1deg);}
+        .doc-chat { background: #e0f2fe; border-radius: 15px 15px 15px 0; border: 1px solid #bae6fd;}
+        .doc-plan { background: #fff; border: 1px solid #e2e8f0; background-image: repeating-linear-gradient(transparent, transparent 24px, #e2e8f0 25px); background-position: 0 30px; line-height: 25px;}
+        .doc-calendar { background: #fce7f3; border: 1px solid #fbcfe8; border-top: 10px solid #f472b6;}
+
+        .info-pill { display: inline-block; background: rgba(255,255,255,0.7); border: 2px solid #cbd5e1; color: #1e293b; padding: 2px 6px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; margin: 2px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); line-height: normal;}
+        .info-pill:hover { transform: translateY(-2px); border-color: var(--accent); background: #fffbeb;}
+        .info-pill.selected { background: var(--accent); color: white; border-color: #b45309; transform: scale(1.05); }
+        .info-pill.placed { opacity: 0; pointer-events: none; position: absolute; }
+
+        .s-box { background: white; border: 3px dashed #94a3b8; border-radius: 10px; padding: 15px; min-height: 70px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: 0.3s; }
+        .s-box:hover { border-color: var(--secondary); background: #f0f9ff; }
+        .s-box-title { font-weight: 900; color: #64748b; font-size: 1rem; pointer-events: none; border-bottom: 1px dashed #cbd5e1; padding-bottom: 5px;}
+        .s-box-req { font-size: 0.85rem; color: #ef4444; font-weight: bold; pointer-events: none;}
+        .s-box.filled { border-style: solid; border-color: #10b981; background: #ecfdf5; pointer-events: none;}
+        .s-box.filled .s-box-title { color: #059669; border-bottom-color: #a7f3d0;}
+        .s-box.filled .s-box-req { display: none; }
+        .s-box .placed-pill { background: #10b981; color: white; padding: 6px 10px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; animation: popIn 0.3s;}
+        
+        @keyframes popIn { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
+
+        .expansion-text { font-size: 1.15rem; line-height: 2.4; color: #334155; background: white; padding: 30px; border-radius: 10px; border: 2px solid #e2e8f0; }
+        .raw-text-span { background: #fef08a; padding: 2px 8px; border-radius: 4px; font-weight: bold; border: 1px solid #facc15;}
+        .news-select { font-size: 1.05rem; padding: 4px 8px; border: 2px solid var(--secondary); border-radius: 6px; color: var(--primary); font-weight: bold; cursor: pointer; outline: none; background: #eff6ff; max-width: 250px;}
+        .news-select.correct { border-color: #10b981; background: #dcfce3; color: #059669; pointer-events: none;}
+        .news-select.wrong { border-color: #ef4444; background: #fee2e2; color: #b91c1c; animation: shake 0.4s;}
+
+        .final-paragraph { background: #fdfdfa; padding: 40px 50px 30px 50px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1.15rem; line-height: 2; color: #1e293b; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: justify; position: relative; font-family: "MingLiU", serif;}
+        .final-disclaimer { margin-top: 30px; font-size: 0.95rem; color: #94a3b8; text-align: center; border-top: 1px dashed #cbd5e1; padding-top: 15px; font-family: 'Noto Sans TC', sans-serif;}
+
+        .next-btn { background: var(--secondary); color: white; border: none; padding: 12px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 30px; cursor: pointer; margin-top: 20px; transition: 0.2s; display: none; box-shadow: 0 4px 10px rgba(59,130,246,0.3);}
+        .next-btn:hover { background: #2563eb; transform: translateY(-2px); }
+
+        /* Modal Styles */
+        #improve-modal { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); z-index: 2000; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .modal-box { background: #fff; width: 90%; max-width: 800px; max-height: 85vh; border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.3); border: 3px solid #f59e0b; }
+        .modal-header { background: #fdf8f5; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; flex-shrink: 0; }
+        .modal-title { color: #b45309; font-size: 1.3rem; font-weight: 900; margin: 0; }
+        .modal-close { background: #ef4444; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; flex-shrink: 0; }
+        .modal-content { padding: 20px; overflow-y: auto; flex: 1; background: #f8fafc; }
+        .improve-item { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+        .improve-item:hover { border-color: #3b82f6; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .improve-phrase { padding: 15px; font-weight: bold; color: #1e3a8a; display: flex; justify-content: space-between; align-items: center; line-height: 1.5; }
+        .improve-phrase::after { content: '▼'; font-size: 0.8em; color: #94a3b8; margin-left: 10px; }
+        .improve-example { padding: 0 15px 15px 15px; color: #065f46; display: none; font-size: 1rem; border-top: 1px dashed #e2e8f0; margin-top: 5px; padding-top: 10px; line-height: 1.6;}
+        .improve-item.open .improve-example { display: block; animation: fadeIn 0.3s; }
+        .improve-item.open .improve-phrase::after { content: '▲'; }
+
+        /* ========================================================= */
+        /* --- Game 3: 3D Claw Machine Styles (RWD Optimized) --- */
+        /* ========================================================= */
+        #view-game3 {
+            background-color: #1a1a2e;
+            background-image: radial-gradient(circle at center, #16213e 0%, #0f3460 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        #view-game3 .page-title { color: #ffb74d; border-bottom: 3px solid #ff9800; }
+        #view-game3 .page-desc { color: #bbdefb; font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6; }
+
+        .g3-layout {
+            display: flex;
+            flex-direction: column; /* 垂直排版 */
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Machine Cabinet (Wrapper for Scaling) */
+        .cm-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 540px; /* 預設高度 */
+            overflow: hidden; /* 防止縮放時產生多餘捲軸 */
+        }
+        
+        .claw-machine {
+            width: 800px;
+            max-width: 100%;
+            height: 520px;
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.7), rgba(230, 81, 0, 0.85));
+            border: 8px solid #ffcc80;
+            border-radius: 20px 20px 5px 5px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 30px rgba(255,255,255,0.4);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            user-select: none; /* 防止連點選取文字 */
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+
+        /* Machine Header */
+        .cm-header {
+            text-align: center;
+            background: #d84315;
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.5rem;
+            padding: 8px 0;
+            border-bottom: 4px solid #ffcc80;
+            border-radius: 12px 12px 0 0;
+            text-shadow: 2px 2px 0px #000;
+            letter-spacing: 2px;
+            font-style: italic;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Machine Glass Area */
+        .cm-glass {
+            flex: 1;
+            margin: 15px 15px 0 15px;
+            background: rgba(255, 243, 224, 0.25);
+            border: 4px solid #ffa726;
+            border-bottom: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(255, 152, 0, 0.4);
+        }
+
+        /* Machine Base & Panel */
+        .cm-base {
+            height: 150px;
+            background: linear-gradient(to bottom, #f57c00, #e65100);
+            border-top: 6px solid #ffb74d;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            box-shadow: inset 0 15px 15px -15px rgba(0,0,0,0.5);
+        }
+
+        /* Chute */
+        .cm-chute {
+            position: absolute;
+            left: 6%;
+            bottom: 20px;
+            width: 12%;
+            max-width: 90px;
+            height: 90px;
+            background: #212121;
+            border: 4px solid #ffb74d;
+            border-radius: 8px 8px 5px 5px;
+            box-shadow: inset 0 15px 25px rgba(0,0,0,0.9);
+        }
+
+        /* Buttons Control Panel */
+        .cm-controls {
+            width: 180px;
+            height: 70px;
+            background: #ffb74d;
+            border: 3px solid #fff3e0;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 5;
+            transition: transform 0.3s ease;
+        }
+
+        .cm-btn {
+            background: #e0e0e0;
+            border: 2px solid #9e9e9e;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #757575, 0 8px 5px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.1s;
+            touch-action: manipulation; /* 針對手機防止雙擊縮放 */
+        }
+        .cm-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 #757575, 0 2px 2px rgba(0,0,0,0.3);
+        }
+        .cm-btn-drop {
+            background: #ef5350;
+            border-color: #c62828;
+            box-shadow: 0 5px 0 #b71c1c, 0 8px 5px rgba(0,0,0,0.3);
+            color: white;
+            font-weight: bold;
+            width: 48px;
+            height: 48px;
+        }
+        .cm-btn-drop:active { box-shadow: 0 0 0 #b71c1c; }
+
+        /* Claw System */
+        .cm-claw-system {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 60px;
+            height: 100%;
+            transform: translateX(-50%);
+            z-index: 10;
+            transition: left 0.2s ease-out; /* 移動更平滑快速 */
+        }
+        .cm-string {
+            width: 4px;
+            background: #cfd8dc;
+            height: 25px; 
+            margin: 0 auto;
+            transition: height 1s ease-in-out;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.3);
+        }
+        .cm-claw-body {
+            width: 38px;
+            height: 28px;
+            background: linear-gradient(to bottom, #eceff1, #90a4ae);
+            border: 2px solid #546e7a;
+            border-radius: 6px 6px 0 0;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 5px 8px rgba(0,0,0,0.4);
+        }
+        .cm-prong {
+            position: absolute;
+            top: 26px;
+            width: 15px;
+            height: 40px;
+            border: 4px solid #b0bec5;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.2);
+        }
+        .cm-prong.left { left: -10px; border-right: none; transform-origin: top right; transform: rotate(35deg); }
+        .cm-prong.right { right: -10px; border-left: none; transform-origin: top left; transform: rotate(-35deg); }
+        .cm-claw-system.closed .cm-prong.left { transform: rotate(5deg); }
+        .cm-claw-system.closed .cm-prong.right { transform: rotate(-5deg); }
+
+        /* Emoji Prizes & Visible Text */
+        .cm-prize {
+            position: absolute;
+            width: 60px;
+            height: 70px;
+            bottom: 35px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            transition: left 0.6s, bottom 0.6s;
+            z-index: 2;
+        }
+        .cm-prize::before {
+            content: attr(data-emoji);
+            font-size: 55px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
+        }
+        .cm-prize .prize-text {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: #fff;
+            color: #d84315;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 2px solid #ffa726;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        /* Board & Collection (Top & Bottom Layout) */
+        .g3-board {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #ffb74d;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            box-sizing: border-box;
+        }
+        .g3-board-title { color: #ffb74d; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; border-bottom: 2px dashed rgba(255,183,77,0.5); padding-bottom: 5px; }
+        .g3-question-text { font-size: 1.25rem; line-height: 2.2; color: #fff3e0; font-weight: bold; }
+        .q-blank {
+            display: inline-block; min-width: 70px; border-bottom: 3px solid #ff9800; text-align: center; color: #ffb74d;
+            padding: 0 10px; margin: 0 5px; background: rgba(255,152,0,0.1); border-radius: 4px 4px 0 0; font-size: 1.15rem;
+        }
+        .q-blank.filled { color: #69f0ae; border-bottom-color: #69f0ae; background: rgba(105, 240, 174, 0.1); animation: popIn 0.3s; }
+
+        /* Collection Box */
+        .g3-collection {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 3px dashed #ffa726;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+        .g3-collection-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-content: flex-start; min-height: 120px; }
+        .col-doll { font-size: 45px; animation: floatUp 0.5s ease-out; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5)); margin-bottom: 20px; position: relative; }
+        .col-doll::after {
+            content: attr(data-word); position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 11px;
+            background: #fff; color: #d84315; padding: 2px 5px; border-radius: 4px; font-weight: bold; white-space: nowrap; border: 1px solid #ffa726;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 手機與平板 RWD 縮放邏輯 (確保機台等比例縮小、按鈕放大) */
+        /* ---------------------------------------------------- */
+        @media (max-width: 850px) {
+            .cm-wrapper { height: 440px; }
+            .claw-machine { transform: scale(0.8); transform-origin: top center; }
+            .cm-controls { transform: scale(1.15); margin-top: 15px; }
+        }
+        @media (max-width: 600px) {
+            .cm-wrapper { height: 360px; }
+            .claw-machine { transform: scale(0.65); transform-origin: top center; }
+            /* 在手機上放大按鈕，更好點擊 */
+            .cm-controls { transform: scale(1.35); margin-top: 25px; } 
+        }
+        @media (max-width: 450px) {
+            .cm-wrapper { height: 290px; }
+            .claw-machine { transform: scale(0.5); transform-origin: top center; }
+            /* 在小手機上再放大按鈕比例 */
+            .cm-controls { transform: scale(1.6); margin-top: 40px; } 
+        }
+
+        @media (max-width: 768px) {
+            .raw-data-panel { grid-template-columns: 1fr; }
+            .global-score-board { margin-left: 0; width: 100%; justify-content: center; margin-top: 10px;}
+            .game-header { flex-direction: column; align-items: flex-start; }
+            .local-tools { width: 100%; justify-content: space-between; }
+            .final-paragraph { padding: 25px 20px; }
+            #view-game3 { padding: 20px 10px; }
+        }
+        @media (max-width: 400px) {
+            .g3-question-text { font-size: 1.15rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Navigation -->
+    <div class="main-nav">
+        <button class="main-nav-btn active" onclick="switchMainView('view-framework', this)"><i class="fa-solid fa-book-open"></i> 萬用背誦架構</button>
+        <button class="main-nav-btn" onclick="switchMainView('view-game1', this)"><i class="fa-solid fa-campground"></i> 特訓一：休閒類轉化</button>
+        <button class="main-nav-btn" onclick="switchMainView('view-game2', this)"><i class="fa-solid fa-laptop-code"></i> 特訓二：科技類轉化</button>
+        <button class="main-nav-btn" onclick="switchMainView('view-game3', this)"><i class="fa-solid fa-gamepad"></i> 特訓三：3D夾娃娃</button>
+        <div class="global-score-board"><i class="fa-solid fa-star"></i> 總分：<span id="global-score">0</span></div>
+    </div>
+
+    <!-- ==================== VIEW 1: Framework ==================== -->
+    <div id="view-framework" class="view-section active">
+        <div class="page">
+            <h2 class="page-title"><i class="fa-solid fa-pen-nib"></i> 推廣信寫作：雙軌背誦架構</h2>
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #4a5568;">推廣信的對象具針對性（通常為會員），並使用親切的<b>第一、二人稱</b>對話。請根據推廣項目性質點選下方分類。休閒類著重<b>體驗與放鬆</b>，科技類著重<b>功能與便利</b>。點擊「💡 自我增值」查看專屬的專業用詞、寫作策略與<b>套用結構示範</b>！</p>
+            
+            <div class="tab-container">
+                <button class="tab-btn active" data-type="leisure" onclick="switchTab('leisure')">🌿 休閒體驗類 (如: 農莊/露營/旅行團)</button>
+                <button class="tab-btn" data-type="tech" onclick="switchTab('tech')">💻 科技產品類 (如: 冰箱/健身鏡/耳機)</button>
+            </div>
+
+            <!-- 休閒體驗類模板 -->
+            <div id="leisure-template" class="template-content active">
+                <div class="template-grid">
+                    <div class="t-row">
+                        <div class="t-content" style="padding: 15px 20px;">
+                            親愛的 <span class="t-blank">目標對象身分 (如: 尊尚會會員)</span>：
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-l-title);">
+                            1. 標題 (Title) <span class="aidca-badge bg-a">A 吸引注意</span>
+                            <button class="self-improve-btn" onclick="openModal('l_title')">💡 標題與用詞</button>
+                        </div>
+                        <div class="t-content" style="text-align: center; font-size: 1.3rem; font-weight: 900; color: var(--primary);">
+                            <span class="t-blank">專屬感 (如: 你的萬呎都市綠洲 / 星空下的奢華假期)</span> <br>
+                            <span class="t-blank">活動特點/好處 (如: 就在新都會廣場 / 探索秘境豪華露營)</span>
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-l-lead);">
+                            2. 前導段 (Lead) <span class="aidca-badge bg-a">A 吸引注意</span> <span class="aidca-badge bg-i">I 引發興趣</span>
+                            <button class="self-improve-btn" onclick="openModal('l_lead')">💡 前導段句式</button>
+                        </div>
+                        <div class="t-content">
+                            <span class="t-blank">痛點提問/感謝語 (如: 厭倦了千篇一律的住宿？)</span> 我們誠意邀請您參加 <span class="t-blank">推廣項目名稱</span>。讓您 <span class="t-blank">核心好處 (如: 遠離煩囂，在綠意盎然中放鬆心情)</span>，體驗 <span class="t-blank">理想生活狀態 (如: 舒適與大自然的結合)</span>。
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-l-body);">
+                            3. 主體一 (Body 1) - 環境特色 ✕ 感官體驗 <span class="aidca-badge bg-i">I 引發興趣</span> <span class="aidca-badge bg-d">D 激發慾望</span>
+                            <button class="self-improve-btn" onclick="openModal('l_body1')">💡 五感描寫秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              <strong style="color: var(--leisure-main); font-size: 1.2rem;">【<span class="t-blank">小標題：特點 + 效果 (如: 入住豪華帳篷 聆聽海浪入睡)</span>】</strong><br>
+                              這裡設有 <span class="t-blank">硬體特點 (如: 配備冷氣的豪華帳篷)</span>，是為您精心設計的 <span class="t-blank">環境美稱 (如: 隱世秘境)</span>。漫步/身處於 <span class="t-blank">具體場景 (如: 翠綠草坪與花田之間)</span>，立刻讓您 <span class="t-blank">正面感受 (如: 心曠神怡/伴隨海浪聲入睡)</span>，瞬間從繁忙的都市生活步入 <span class="t-blank">理想狀態 (如: 恬靜舒適的空間)</span>。
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-l-body);">
+                            4. 主體二 (Body 2) - 焦點活動 ✕ 信心保證 <span class="aidca-badge bg-d">D 激發慾望</span> <span class="aidca-badge bg-c">C 堅定信心</span>
+                            <button class="self-improve-btn" onclick="openModal('l_body2')">💡 活動與信任秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              <strong style="color: var(--leisure-main); font-size: 1.2rem;">【<span class="t-blank">小標題：特點 + 效果 (如: 米芝蓮級營火晚餐 身心舒暢)</span>】</strong><br>
+                              除了飽覽美景，您還可以 <span class="t-blank">焦點活動 (如: 參加戶外瑜伽 / 在農墟試吃蔬果)</span>。我們的項目由 <span class="t-blank">權威/專業人士 (如: 專業導師 / 金牌教練)</span> 帶領，並獲得 <span class="t-blank">認證/成績 (如: 米芝蓮評級)</span>，絕對是您的信心之選，勢必令您 <span class="t-blank">總結好處 (如: 滿載而歸 / 身心舒暢)</span>。
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-l-body);">
+                            5. 展銷/講座詳情與優惠 <span class="aidca-badge bg-d">D 激發慾望</span> <span class="aidca-badge bg-act">Act 促使行動</span>
+                            <button class="self-improve-btn" onclick="openModal('l_offer')">💡 莊臣方格秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              為讓您更了解詳情，我們將於 <span class="t-blank">時間</span> 在 <span class="t-blank">地點</span> 舉辦 <span class="t-blank">活動名稱 (如: 簡介會 / 開幕禮)</span>，屆時將有 <span class="t-blank">精彩亮點 (如: 現場試玩 / 抽獎環節)</span>。
+                              <div class="johnson-box">
+                                  <strong style="color: #d97706;">🎁 會員專享優惠：</strong><br>
+                                  凡出席/出示本信件，即可 <span class="t-blank">優惠 1 (如: 獲贈禮品包一份)</span>。即場報名/下載應用程式，更可 <span class="t-blank">優惠 2 (如: 減團費 800 元 / 參加大抽獎)</span>！
+                              </div>
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-l-end);">
+                            6. 收束段 (Conclusion) & 格式結尾 <span class="aidca-badge bg-act">Act 促使行動</span>
+                            <button class="self-improve-btn" onclick="openModal('l_end')">💡 促使行動秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              <span class="t-blank">重申最大賣點 (如: 帶有淡淡植物香味的農莊)</span>，為您帶來 <span class="t-blank">重申好處 (如: 專屬的綠色生活體驗)</span>。是次活動 <span class="t-blank">限額/限時 (如: 名額只有 40 位)</span>，機會難逢，心動不如馬上行動！如欲查詢，請致電 <span class="t-blank">電話號碼</span> 或電郵至 <span class="t-blank">電郵地址</span> 與我們聯絡。
+                              <div style="text-align: right; margin-top: 30px; line-height: 1.5;">
+                                  <span class="t-blank">發信機構名稱</span><br>
+                                  <span class="t-blank">發信人職銜</span><br>
+                                  <span class="t-blank">姓名</span> 謹上<br>
+                                  <span class="t-blank">年 月 日</span>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 科技產品類模板 -->
+            <div id="tech-template" class="template-content">
+                <div class="template-grid">
+                    <div class="t-row">
+                        <div class="t-content" style="padding: 15px 20px;">
+                            親愛的 <span class="t-blank">目標對象身分 (如: 尊賞會會員)</span>：
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-t-title);">
+                            1. 標題 (Title) <span class="aidca-badge bg-a">A 吸引注意</span>
+                            <button class="self-improve-btn" onclick="openModal('t_title')">💡 標題與用詞</button>
+                        </div>
+                        <div class="t-content" style="text-align: center; font-size: 1.3rem; font-weight: 900; color: var(--tech-main);">
+                            全新 <span class="t-blank">產品型號/名稱 (如: FitMagic 智能健身鏡)</span> <br>
+                            讓您 <span class="t-blank">解決痛點的好處 (如: 客廳秒變私人健身房)</span>
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-t-lead);">
+                            2. 前導段 (Lead) <span class="aidca-badge bg-a">A 吸引注意</span> <span class="aidca-badge bg-i">I 引發興趣</span>
+                            <button class="self-improve-btn" onclick="openModal('t_lead')">💡 前導段句式</button>
+                        </div>
+                        <div class="t-content">
+                            <span class="t-blank">痛點描述 (如: 工作繁忙沒時間去健身室？)</span> 您是否想 <span class="t-blank">顧客需求 (如: 在家擁有專業指導)</span>？全新推出的 <span class="t-blank">產品名稱</span>，是專門為您而設計的 <span class="t-blank">產品類別</span>，讓您 <span class="t-blank">核心好處 (如: 輕鬆練出完美體態)</span>。
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-t-body);">
+                            3. 主體一 (Body 1) - 核心科技 ✕ 解決問題 <span class="aidca-badge bg-i">I 引發興趣</span> <span class="aidca-badge bg-d">D 激發慾望</span>
+                            <button class="self-improve-btn" onclick="openModal('t_body1')">💡 科技轉化秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              <strong style="color: var(--tech-main); font-size: 1.2rem;">【<span class="t-blank">小標題：形容詞 + 產品特點 (如: 智能捕捉 宛如私教)</span>】</strong><br>
+                              本產品內置/採用 <span class="t-blank">專利或核心技術 (如: AI 動態捕捉技術)</span>，能有效 <span class="t-blank">技術運作方式 (如: 精準糾正運動姿勢)</span>。以後，不論您 <span class="t-blank">使用情境 (如: 是新手還是老手)</span>，都能 <span class="t-blank">獲得的好處 (如: 避免運動受傷，提升效率)</span>。
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-t-body);">
+                            4. 主體二 (Body 2) - 便利設計 ✕ 實驗數據 <span class="aidca-badge bg-d">D 激發慾望</span> <span class="aidca-badge bg-c">C 堅定信心</span>
+                            <button class="self-improve-btn" onclick="openModal('t_body2')">💡 數據說服秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              <strong style="color: var(--tech-main); font-size: 1.2rem;">【<span class="t-blank">小標題：形容詞 + 產品特點 (如: 慳位設計 課程豐富)</span>】</strong><br>
+                              設計上，我們特別為您加入了 <span class="t-blank">便利功能 (如: 佔地不足 0.1 平方米)</span>，讓您 <span class="t-blank">便利好處 (如: 隨時隨地開啟過百種課程)</span>。經實驗測試/專家評估，本產品 <span class="t-blank">數據或比較 (如: 燃脂效率顯著提升 40%)</span>，絕對是您的信心保證。
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-t-body);">
+                            5. 展銷詳情與優惠 <span class="aidca-badge bg-d">D 激發慾望</span> <span class="aidca-badge bg-act">Act 促使行動</span>
+                            <button class="self-improve-btn" onclick="openModal('t_offer')">💡 莊臣方格秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              想親身體驗智能科技為您帶來的便利嗎？我們誠邀您出席 <span class="t-blank">時間</span> 在 <span class="t-blank">地點</span> 舉辦的 <span class="t-blank">體驗日活動</span>，屆時可現場試用並感受產品的強大功能。
+                              <div class="johnson-box">
+                                  <strong style="color: #d97706;">🎁 會員尊享優惠：</strong><br>
+                                  即日起出示本推廣信正本，購買 <span class="t-blank">產品名稱</span> 即可 <span class="t-blank">優惠 1 (如: 享 85 折優惠)</span>，更可自動參加大抽獎，有機會贏取 <span class="t-blank">獎品 (如: 智能手錶一隻)</span>！
+                              </div>
+                        </div>
+                    </div>
+                    <div class="t-row">
+                        <div class="t-header" style="background: var(--hl-t-end);">
+                            6. 收束段 (Conclusion) & 格式結尾 <span class="aidca-badge bg-act">Act 促使行動</span>
+                            <button class="self-improve-btn" onclick="openModal('t_end')">💡 促使行動秘訣</button>
+                        </div>
+                        <div class="t-content">
+                              您的 <span class="t-blank">理想狀態 (如: 完美體態)</span>，唯有 <span class="t-blank">產品名稱</span> 能為您打造！優惠期至 <span class="t-blank">截止日期</span>，千萬不要錯過。如欲報名或查詢詳情，請致電 <span class="t-blank">電話號碼</span> 或電郵至 <span class="t-blank">電郵地址</span> 與推廣部聯絡。
+                              <div style="text-align: right; margin-top: 30px; line-height: 1.5;">
+                                  <span class="t-blank">發信機構名稱</span><br>
+                                  <span class="t-blank">發信人職銜</span><br>
+                                  <span class="t-blank">姓名</span> 謹上<br>
+                                  <span class="t-blank">年 月 日</span>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== VIEW 2: Game 1 (Leisure) ==================== -->
+    <div id="view-game1" class="view-section">
+        <div class="page">
+            <div class="game-header" style="border-color: var(--leisure-main);">
+                <h2 class="page-title" style="color: var(--leisure-main);"><i class="fa-solid fa-campground"></i> 特訓一：情報轉化 (休閒體驗類 - 秘境豪華露營)</h2>
+                <div class="local-tools">
+                    <div class="local-score-board" style="background:#d1fae5; border-color:#6ee7b7; color:#047857;">本關得分：<span id="g1-score">0</span></div>
+                    <button class="retry-btn" onclick="resetGame('g1')">🔄 重新挑戰</button>
+                </div>
+            </div>
+            <p style="font-size: 1.1rem; color: #4a5568;">我們不能把所有內部文件的文字直接塞給客戶！這就像是一張藏寶圖，請從下方的「內部企劃文件」中找出推廣信需要的關鍵情報，並點擊右側對應的【推廣信結構區塊】放入。</p>
+            
+            <div id="g1-step1" class="game-step active">
+                <h3 class="step-title" style="color: var(--leisure-main); border-color: var(--leisure-main);">第一步：尋找並分類情報 🔍</h3>
+                <div class="game-split">
+                    <div class="raw-data-panel">
+                        <div class="doc-card doc-plan">
+                            <div class="doc-title"><i class="fa-solid fa-bullseye"></i> 專案企劃書</div>
+                            目標對象：<span class="info-pill" id="l_p0_1" onclick="selectPill('l_p0_1', this)">尊尚會會員</span><br>
+                            行銷切入點：<span class="info-pill" id="l_p1" onclick="selectPill('l_p1', this)">厭倦千篇一律的住宿？誠邀體驗大自然與舒適的結合</span><br>
+                            企劃主題：<span class="info-pill" id="l_p0_2" onclick="selectPill('l_p0_2', this)">星空下的奢華假期 探索秘境豪華露營</span>
+                        </div>
+                        <div class="doc-card doc-memo">
+                            <div class="doc-title"><i class="fa-solid fa-list-check"></i> 設施與活動備忘錄</div>
+                            場地亮點：<span class="info-pill" id="l_p2" onclick="selectPill('l_p2', this)">入住配備冷氣的豪華帳篷，伴隨海浪聲入睡</span><br>
+                            附屬活動：<span class="info-pill" id="l_p3" onclick="selectPill('l_p3', this)">由專業導師帶領戶外瑜伽，享用米芝蓮級營火晚餐</span>
+                        </div>
+                        <div class="doc-card doc-calendar">
+                            <div class="doc-title"><i class="fa-solid fa-calendar-days"></i> 講座與預算安排</div>
+                            簡介會資訊：<span class="info-pill" id="l_p4_1" onclick="selectPill('l_p4_1', this)">2026年10月15日 下午2:00，綠野仙蹤渡假村</span><br>
+                            預算與回饋：<span class="info-pill" id="l_p4_2" onclick="selectPill('l_p4_2', this)">出席簡介會送露營裝備，即場報名減 800 元</span>
+                        </div>
+                        <div class="doc-card doc-chat">
+                            <div class="doc-title"><i class="fa-solid fa-comments"></i> 宣傳部對話群組</div>
+                            主管提醒：記得加上限制，<span class="info-pill" id="l_p5_1" onclick="selectPill('l_p5_1', this)">名額只限 20 個家庭，報名請致電 2888 9999</span>。<br>
+                            另外，信件統一署名為：<span class="info-pill" id="l_p5_2" onclick="selectPill('l_p5_2', this)">綠悠假期 推廣部經理 林小美，發信日 2026年9月15日</span>。
+                        </div>
+                    </div>
+                    
+                    <div class="structure-panel">
+                        <div class="s-box" id="box-l-title" onclick="dropPill(this, 'box-l-title', ['l_p0_1', 'l_p0_2'], 'g1')">
+                            <div class="s-box-title">📍 上款與標題區</div>
+                            <div class="s-box-req">(提示：這封信要寫給誰？主題是什麼呢？)</div>
+                        </div>
+                        <div class="s-box" id="box-l-lead" onclick="dropPill(this, 'box-l-lead', ['l_p1'], 'g1')">
+                            <div class="s-box-title">📍 前導段</div>
+                            <div class="s-box-req">(提示：找找看，什麼原因能吸引他們繼續往下看？)</div>
+                        </div>
+                        <div class="s-box" id="box-l-body1" onclick="dropPill(this, 'box-l-body1', ['l_p2'], 'g1')">
+                            <div class="s-box-title">📍 主體一：環境與體驗</div>
+                            <div class="s-box-req">(提示：尋找能讓顧客身歷其境的環境描述)</div>
+                        </div>
+                        <div class="s-box" id="box-l-body2" onclick="dropPill(this, 'box-l-body2', ['l_p3'], 'g1')">
+                            <div class="s-box-title">📍 主體二：特色活動與保證</div>
+                            <div class="s-box-req">(提示：除了環境，還有哪些由專業人士帶領的特別安排？)</div>
+                        </div>
+                        <div class="s-box" id="box-l-offer" onclick="dropPill(this, 'box-l-offer', ['l_p4_1', 'l_p4_2'], 'g1')">
+                            <div class="s-box-title">📍 展銷/講座詳情與優惠</div>
+                            <div class="s-box-req">(提示：活動何時何地舉行？參加者有什麼特別好處？)</div>
+                        </div>
+                        <div class="s-box" id="box-l-end" onclick="dropPill(this, 'box-l-end', ['l_p5_1', 'l_p5_2'], 'g1')">
+                            <div class="s-box-title">📍 收束段與結尾</div>
+                            <div class="s-box-req">(提示：最後要如何催促行動？別忘了書信的結尾格式喔！)</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button id="btn-g1-next1" class="next-btn" style="background: var(--leisure-main);" onclick="showStep('g1-step2')">情報收集完畢！進入擴寫階段 ➡️</button>
+                </div>
+            </div>
+
+            <div id="g1-step2" class="game-step">
+                <h3 class="step-title" style="color: var(--leisure-main); border-color: var(--leisure-main);">第二步：加入專業詞彙擴寫 ✍</h3>
+                <p>情報都找齊了！請從下拉選單中選擇正確的「推廣信專業詞彙」，將零散的特點轉化為顧客在乎的好處。(答對 <span style="color:#10b981; font-weight:bold;">+2分</span>，答錯 <span style="color:#ef4444; font-weight:bold;">-1分</span>)</p>
+                
+                <div class="expansion-text">
+                    <div style="margin-bottom: 20px; font-weight: bold; color: #1e293b;">親愛的 <span class="raw-text-span">尊尚會會員</span>：</div>
+                    
+                    <div style="text-align: center; font-size: 1.4rem; font-weight: bold; margin-bottom: 20px;">
+                        <span class="raw-text-span" style="font-size: 1.1rem;">星空下的奢華假期 探索秘境豪華露營</span>
+                    </div>
+
+                    <span class="raw-text-span">厭倦千篇一律的住宿？</span>我們
+                    <select class="news-select" id="g1-s1" onchange="handleSelect(this, 'g1', ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">誠意邀請您體驗</option><option value="wrong">強制規定您參加</option>
+                    </select>
+                    <span class="raw-text-span">大自然與舒適的結合</span>。相信定能為您帶來
+                    <select class="news-select" id="g1-s2" onchange="handleSelect(this, 'g1', ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6'])">
+                        <option value="">(請選擇)</option><option value="wrong">平平無奇</option><option value="correct">非同凡響</option>
+                    </select>
+                    的度假時光。
+                    <br><br>
+                    行程中，我們會帶您探索隱世秘境，<span class="raw-text-span">入住配備冷氣的豪華帳篷</span>。讓您
+                    <select class="news-select" id="g1-s3" onchange="handleSelect(this, 'g1', ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">伴隨海浪聲入睡</option><option value="wrong">被蚊蟲叮咬入睡</option>
+                    </select>
+                    ，瞬間從繁忙都市步入恬靜大自然。
+                    <br><br>
+                    此次行程的焦點是 <span class="raw-text-span">由專業導師帶領戶外瑜伽，享用米芝蓮級營火晚餐</span>。豐富的活動安排，勢必令您
+                    <select class="news-select" id="g1-s4" onchange="handleSelect(this, 'g1', ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6'])">
+                        <option value="">(請選擇)</option><option value="wrong">身心疲憊</option><option value="correct">身心舒暢</option>
+                    </select>
+                    ！
+                    <br><br>
+                    為讓您了解詳情，我們將於 <span class="raw-text-span">2026年10月15日 下午2:00</span> 在 <span class="raw-text-span">綠野仙蹤渡假村</span> 舉辦主題簡介會。會員可享
+                    <select class="news-select" id="g1-s5" onchange="handleSelect(this, 'g1', ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">專享優惠</option><option value="wrong">額外收費</option>
+                    </select>
+                    ：<span class="raw-text-span">出席簡介會送露營裝備，即場報名減 800 元。</span>
+                    <br><br>
+                    <span class="raw-text-span">名額只限 20 個家庭</span>，實在
+                    <select class="news-select" id="g1-s6" onchange="handleSelect(this, 'g1', ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">機會難逢</option><option value="wrong">隨時都有</option>
+                    </select>
+                    ，心動不如馬上行動！<span class="raw-text-span">報名請致電 2888 9999。</span>
+                    
+                    <div style="text-align: right; margin-top: 30px; font-weight: bold; color: #1e293b; line-height: 1.5;">
+                        <span class="raw-text-span">綠悠假期</span><br>
+                        <span class="raw-text-span">推廣部經理 林小美</span> 謹上<br>
+                        <span class="raw-text-span">2026年9月15日</span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button id="btn-g1-next2" class="next-btn" style="background: var(--leisure-main);" onclick="showStep('g1-step3')">擴寫完美！查看最終成果 ➡️</button>
+                </div>
+            </div>
+
+            <div id="g1-step3" class="game-step">
+                <h3 class="step-title" style="color: var(--leisure-main); border-color: var(--leisure-main);">第三步：大功告成！🎉</h3>
+                <p>這就是將「藏寶圖情報」轉化為「顧客好處」，並套用推廣信標準格式的最終成果！</p>
+                <div class="final-paragraph" style="border-left-color: var(--leisure-main);">
+                    親愛的尊尚會會員：
+                    <div style="text-align: center; font-size: 1.4rem; font-weight: bold; margin: 20px 0; color: #1e293b; text-indent: 0;">
+                        星空下的奢華假期 探索秘境豪華露營
+                    </div>
+                    厭倦千篇一律的住宿？我們誠意邀請您體驗大自然與舒適的結合。相信定能為您帶來非同凡響的度假時光。
+                    <br><br>
+                    行程中，我們會帶您探索隱世秘境，入住配備冷氣的豪華帳篷。讓您伴隨海浪聲入睡，瞬間從繁忙都市步入恬靜大自然。
+                    <br><br>
+                    此次行程的焦點是由專業導師帶領戶外瑜伽，享用米芝蓮級營火晚餐。豐富的活動安排，勢必令您身心舒暢！
+                    <br><br>
+                    為讓您了解詳情，我們將於 2026年10月15日 下午2:00 在 綠野仙蹤渡假村 舉辦主題簡介會。會員可享專享優惠：出席簡介會送露營裝備，即場報名減 800 元。
+                    <br><br>
+                    名額只限 20 個家庭，實在機會難逢，心動不如馬上行動！報名請致電 2888 9999。
+                    
+                    <div style="text-align: right; margin-top: 40px; font-weight: bold; color: #1e293b; line-height: 1.5; text-indent: 0;">
+                        綠悠假期<br>
+                        推廣部經理 林小美 謹上<br>
+                        2026年9月15日
+                    </div>
+                    <div class="final-disclaimer">請注意！此為短篇推廣信示範，推廣信寫作評核的字數與篇幅須符合要求。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== VIEW 3: Game 2 (Tech) ==================== -->
+    <div id="view-game2" class="view-section">
+        <div class="page">
+            <div class="game-header" style="border-color: var(--tech-main);">
+                <h2 class="page-title" style="color: var(--tech-main);"><i class="fa-solid fa-laptop-code"></i> 特訓二：情報轉化 (科技產品類 - 智能健身鏡)</h2>
+                <div class="local-tools">
+                    <div class="local-score-board" style="background:#dbeafe; border-color:#93c5fd; color:#1d4ed8;">本關得分：<span id="g2-score">0</span></div>
+                    <button class="retry-btn" onclick="resetGame('g2')">🔄 重新挑戰</button>
+                </div>
+            </div>
+            <p style="font-size: 1.1rem; color: #4a5568;">科技產品不能只列出冰冷的規格！請試著找出「研發報告」與「市場企劃」中的情報，放入對應的結構中，並利用專業詞彙為顧客提供堅定的購買理由。</p>
+            
+            <div id="g2-step1" class="game-step active">
+                <h3 class="step-title" style="color: var(--tech-main); border-color: var(--tech-main);">第一步：尋找並分類情報 🔍</h3>
+                <div class="game-split">
+                    <div class="raw-data-panel">
+                        <div class="doc-card doc-plan">
+                            <div class="doc-title"><i class="fa-solid fa-microchip"></i> 研發報告</div>
+                            目標客群：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p0_1" onclick="selectPill('t_p0_1', this)">尊賞會會員</span><br>
+                            產品核心：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p2" onclick="selectPill('t_p2', this)">內置 AI 動態捕捉技術，實時糾正運動姿勢</span><br>
+                            企劃名稱：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p0_2" onclick="selectPill('t_p0_2', this)">全新 FitMagic 健身鏡 讓客廳秒變私人健身房</span>
+                        </div>
+                        <div class="doc-card doc-memo">
+                            <div class="doc-title"><i class="fa-solid fa-chart-pie"></i> 市場分析表</div>
+                            客戶痛點：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p1" onclick="selectPill('t_p1', this)">工作太忙沒時間去健身室？在家也能擁有專業指導</span><br>
+                            附加價值：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p3" onclick="selectPill('t_p3', this)">佔地極小，過百款課程隨時開啟，燃脂率提升 40%</span>
+                        </div>
+                        <div class="doc-card doc-calendar">
+                            <div class="doc-title"><i class="fa-solid fa-handshake"></i> 發表會排程</div>
+                            體驗日資訊：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p4_1" onclick="selectPill('t_p4_1', this)">2026年11月20日 上午10:00，灣仔會展中心</span><br>
+                            現場回饋：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p4_2" onclick="selectPill('t_p4_2', this)">出示信件享 85 折，並自動參加大抽獎</span>
+                        </div>
+                        <div class="doc-card doc-chat">
+                            <div class="doc-title"><i class="fa-solid fa-pen-ruler"></i> 發文規定</div>
+                            報名專線：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p5_1" onclick="selectPill('t_p5_1', this)">優惠期至本月 15 日，報名請致電 3888 6666</span><br>
+                            信件署名：<span class="info-pill" style="border-color: var(--tech-main); color: var(--tech-main);" id="t_p5_2" onclick="selectPill('t_p5_2', this)">FitTech科技 宣傳總監 陳大文 (2026年10月20日)</span>
+                        </div>
+                    </div>
+                    <div class="structure-panel">
+                        <div class="s-box" id="box-t-title" onclick="dropPill(this, 'box-t-title', ['t_p0_1', 't_p0_2'], 'g2')">
+                            <div class="s-box-title">📍 上款與標題區</div>
+                            <div class="s-box-req">(提示：這封信的收件人是誰？他們將體驗什麼新產品？)</div>
+                        </div>
+                        <div class="s-box" id="box-t-lead" onclick="dropPill(this, 'box-t-lead', ['t_p1'], 'g2')">
+                            <div class="s-box-title">📍 前導段</div>
+                            <div class="s-box-req">(提示：找找看，顧客生活中遇到了什麼麻煩？)</div>
+                        </div>
+                        <div class="s-box" id="box-t-body1" onclick="dropPill(this, 'box-t-body1', ['t_p2'], 'g2')">
+                            <div class="s-box-title">📍 主體一：核心科技與效能</div>
+                            <div class="s-box-req">(提示：這項產品使用了什麼厲害的技術？)</div>
+                        </div>
+                        <div class="s-box" id="box-t-body2" onclick="dropPill(this, 'box-t-body2', ['t_p3'], 'g2')">
+                            <div class="s-box-title">📍 主體二：便利設計與數據</div>
+                            <div class="s-box-req">(提示：除了核心技術，還有哪些設計細節與驚人數據？)</div>
+                        </div>
+                        <div class="s-box" id="box-t-offer" onclick="dropPill(this, 'box-t-offer', ['t_p4_1', 't_p4_2'], 'g2')">
+                            <div class="s-box-title">📍 展銷詳情與優惠</div>
+                            <div class="s-box-req">(提示：顧客可以去哪裡體驗？現場有什麼好康？)</div>
+                        </div>
+                        <div class="s-box" id="box-t-end" onclick="dropPill(this, 'box-t-end', ['t_p5_1', 't_p5_2'], 'g2')">
+                            <div class="s-box-title">📍 收束段與結尾</div>
+                            <div class="s-box-req">(提示：只剩幾天優惠？最後別忘了負責人的簽名與日期！)</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button id="btn-g2-next1" class="next-btn" style="background: var(--tech-main);" onclick="showStep('g2-step2')">情報收集完畢！進入擴寫階段 ➡️</button>
+                </div>
+            </div>
+
+            <div id="g2-step2" class="game-step">
+                <h3 class="step-title" style="color: var(--tech-main); border-color: var(--tech-main);">第二步：加入專業詞彙擴寫 ✍</h3>
+                <p>請從下拉選單中選擇正確的「推廣信專業詞彙」，將冰冷的產品規格串連成具有說服力的句子。(答對 <span style="color:#10b981; font-weight:bold;">+2分</span>，答錯 <span style="color:#ef4444; font-weight:bold;">-1分</span>)</p>
+                
+                <div class="expansion-text">
+                    <div style="margin-bottom: 20px; font-weight: bold; color: #1e293b;">親愛的 <span class="raw-text-span">尊賞會會員</span>：</div>
+
+                    <div style="text-align: center; font-size: 1.4rem; font-weight: bold; margin-bottom: 20px;">
+                        <span class="raw-text-span" style="font-size: 1.1rem;">全新 FitMagic 健身鏡 讓客廳秒變私人健身房</span>
+                    </div>
+
+                    <span class="raw-text-span">工作太忙沒時間去健身室？在家也能擁有專業指導！</span>全新推出的 FitMagic，是
+                    <select class="news-select" id="g2-s1" onchange="handleSelect(this, 'g2', ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">專門為您而設計的</option><option value="wrong">隨便找人設計的</option>
+                    </select>
+                    智能健身鏡。
+                    <br><br>
+                    產品 <span class="raw-text-span">內置 AI 動態捕捉技術，實時糾正運動姿勢</span>。不論您是新手還是老手，都能讓您
+                    <select class="news-select" id="g2-s2" onchange="handleSelect(this, 'g2', ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'])">
+                        <option value="">(請選擇)</option><option value="wrong">增加受傷風險</option><option value="correct">宛如擁有專屬私人教練</option>
+                    </select>
+                    。
+                    <br><br>
+                    設計上主打 <span class="raw-text-span">佔地極小，過百款課程隨時開啟</span>。經
+                    <select class="news-select" id="g2-s3" onchange="handleSelect(this, 'g2', ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">實驗測試</option><option value="wrong">隨便猜測</option>
+                    </select>
+                    ，<span class="raw-text-span">燃脂率提升 40%</span>，絕對是您的
+                    <select class="news-select" id="g2-s4" onchange="handleSelect(this, 'g2', ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">信心保證</option><option value="wrong">毫無根據</option>
+                    </select>
+                    。
+                    <br><br>
+                    想
+                    <select class="news-select" id="g2-s5" onchange="handleSelect(this, 'g2', ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'])">
+                        <option value="">(請選擇)</option><option value="wrong">隔著螢幕看</option><option value="correct">親身體驗</option>
+                    </select>
+                    產品的強大功能嗎？我們誠邀您出席 <span class="raw-text-span">2026年11月20日 上午10:00，灣仔會展中心</span> 的體驗日。<span class="raw-text-span">出示信件享 85 折，並自動參加大抽獎</span>！
+                    <br><br>
+                    您的完美體態，唯有 FitMagic 為您打造。<span class="raw-text-span">優惠期至本月 15 日</span>，
+                    <select class="news-select" id="g2-s6" onchange="handleSelect(this, 'g2', ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'])">
+                        <option value="">(請選擇)</option><option value="correct">心動不如馬上行動</option><option value="wrong">再等幾年吧</option>
+                    </select>
+                    ！<span class="raw-text-span">報名請致電 3888 6666。</span>
+
+                    <div style="text-align: right; margin-top: 30px; font-weight: bold; color: #1e293b; line-height: 1.5;">
+                        <span class="raw-text-span">FitTech科技</span><br>
+                        <span class="raw-text-span">宣傳總監 陳大文</span> 謹上<br>
+                        <span class="raw-text-span">2026年10月20日</span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button id="btn-g2-next2" class="next-btn" style="background: var(--tech-main);" onclick="showStep('g2-step3')">擴寫完美！查看最終成果 ➡️</button>
+                </div>
+            </div>
+
+            <div id="g2-step3" class="game-step">
+                <h3 class="step-title" style="color: var(--tech-main); border-color: var(--tech-main);">第三步：大功告成！🎉</h3>
+                <div class="final-paragraph" style="border-left-color: var(--tech-main);">
+                    親愛的尊賞會會員：
+                    <div style="text-align: center; font-size: 1.4rem; font-weight: bold; margin: 20px 0; color: #1e293b; text-indent: 0;">
+                        全新 FitMagic 健身鏡 讓客廳秒變私人健身房
+                    </div>
+                    工作太忙沒時間去健身室？在家也能擁有專業指導！全新推出的 FitMagic，是專門為您而設計的智能健身鏡。
+                    <br><br>
+                    產品內置 AI 動態捕捉技術，實時糾正運動姿勢。不論您是新手還是老手，都能讓您宛如擁有專屬私人教練。
+                    <br><br>
+                    設計上主打佔地極小，過百款課程隨時開啟。經實驗測試，燃脂率提升 40%，絕對是您的信心保證。
+                    <br><br>
+                    想親身體驗產品的強大功能嗎？我們誠邀您出席 2026年11月20日 上午10:00，灣仔會展中心 的體驗日。出示信件享 85 折，並自動參加大抽獎！
+                    <br><br>
+                    您的完美體態，唯有 FitMagic 為您打造。優惠期至本月 15 日，心動不如馬上行動！報名請致電 3888 6666。
+                    
+                    <div style="text-align: right; margin-top: 40px; font-weight: bold; color: #1e293b; line-height: 1.5; text-indent: 0;">
+                        FitTech科技<br>
+                        宣傳總監 陳大文 謹上<br>
+                        2026年10月20日
+                    </div>
+                    <div class="final-disclaimer">請注意！此為短篇推廣信示範，推廣信寫作評核的字數與篇幅須符合要求。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== VIEW 4: Game 3 (3D Claw Machine) ==================== -->
+    <div id="view-game3" class="view-section">
+        <div class="game-header" style="border-bottom-color: #ff9800;">
+            <h2 class="page-title"><i class="fa-solid fa-rocket"></i> 特訓三：推廣信常用句式 3D夾娃娃挑戰</h2>
+            <div class="local-tools">
+                <div class="local-score-board" style="background:#fff3e0; border-color:#ffb74d; color:#e65100;">本關得分：<span id="g3-score">0</span></div>
+                <button class="retry-btn" onclick="initGame3()" style="background:#f57c00;">🔄 重新挑戰</button>
+            </div>
+        </div>
+        <p class="page-desc">按左右鍵移動夾爪，按下抓鍵夾起適當的「詞彙Emoji娃娃」！注意：請依照句子 1 和 2 的順序進行填空。（答對 +2分，答錯 -1分）</p>
+        
+        <div class="g3-layout">
+            <!-- 任務句子放在娃娃機上方 -->
+            <div class="g3-board">
+                <div class="g3-board-title">📝 第 <span id="g3-q-num">1</span>/10 題</div>
+                <div class="g3-question-text" id="g3-q-text">
+                    <!-- 動態載入題目 -->
+                </div>
+            </div>
+
+            <!-- 娃娃機放在畫面正中間 (已響應式優化) -->
+            <div class="cm-wrapper">
+                <div class="claw-machine">
+                    <div class="cm-header">喵戰隊 夾娃娃機</div>
+                    
+                    <div class="cm-glass" id="g3-glass">
+                        <!-- 夾爪系統 -->
+                        <div class="cm-claw-system" id="cm-claw">
+                            <div class="cm-string" id="cm-string"></div>
+                            <div class="cm-claw-body" id="cm-body">
+                                <div class="cm-prong left"></div>
+                                <div class="cm-prong right"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cm-base">
+                        <div class="cm-chute"></div>
+                        <!-- 控制面板 (防連擊縮放設計) -->
+                        <div class="cm-controls">
+                            <button class="cm-btn" onpointerdown="moveClaw(-1)"><i class="fa-solid fa-caret-left"></i></button>
+                            <button class="cm-btn cm-btn-drop" onpointerdown="dropClaw()">抓</button>
+                            <button class="cm-btn" onpointerdown="moveClaw(1)"><i class="fa-solid fa-caret-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 娃娃獎品箱放在娃娃機下面 -->
+            <div class="g3-collection">
+                <div class="g3-board-title" style="text-align: center; border: none;"><i class="fa-solid fa-box-open"></i> 娃娃箱 (已夾獲詞彙)</div>
+                <div class="g3-collection-grid" id="g3-collection-box">
+                    <!-- 存放成功夾到的娃娃 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Self-Improvement -->
+    <div id="improve-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 class="modal-title" id="im-title">自我增值：專業詞彙與句型參考</h3>
+                <button class="modal-close" onclick="closeModalWindow()">X</button>
+            </div>
+            <div class="modal-content" id="im-content"></div>
+        </div>
+    </div>
+
+    <!-- Game 3 Error Modal (錯題解釋彈出對話框) -->
+    <div id="g3-error-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index: 3000; justify-content:center; align-items:center; flex-direction:column; padding: 20px;">
+        <div style="background:#fff; padding:30px; border-radius:15px; border:4px solid #ef4444; width:100%; max-width:450px; text-align:center; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">
+            <h3 style="color:#ef4444; margin-top:0; font-size: 1.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> 哎呀，選錯囉！</h3>
+            <p id="g3-error-text" style="font-size:1.15rem; line-height:1.6; color: #334155; font-weight: bold; white-space: pre-wrap; text-align: left; background: #fee2e2; padding: 15px; border-radius: 8px;"></p>
+            <button onclick="document.getElementById('g3-error-modal').style.display='none'" class="next-btn" style="display:inline-block; background:#ef4444; margin-top:20px; box-shadow: 0 4px 10px rgba(239,68,68,0.3);">我知道了</button>
+        </div>
+    </div>
+
+    <!-- Game 3 Win Modal (過關慶祝與彩帶特效彈出窗) -->
+    <div id="g3-win-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index: 4000; justify-content:center; align-items:center; flex-direction:column; padding: 20px;">
+        <div style="background:#fff; padding:40px; border-radius:20px; border:5px solid #f59e0b; width:100%; max-width:500px; text-align:center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: popIn 0.5s;">
+            <h2 style="color:#d97706; margin-top:0; font-size: 2.2rem;"><i class="fa-solid fa-trophy"></i> 夾娃娃高手！</h2>
+            <p style="font-size:1.3rem; line-height:1.6; color: #334155; font-weight: bold;">恭喜您順利完成所有推廣信句式特訓！</p>
+            <div style="font-size: 1.6rem; color: #10b981; margin: 20px 0; font-weight: 900; background: #ecfdf5; padding: 15px; border-radius: 10px;">
+                ⭐ 本關獲得得分：<span id="g3-win-score">0</span> 分
+            </div>
+            <button onclick="document.getElementById('g3-win-modal').style.display='none'" class="next-btn" style="display:inline-block; background:#f59e0b; font-size: 1.2rem; padding: 12px 30px; box-shadow: 0 4px 10px rgba(245,158,11,0.3);">太棒了！</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Navigation Logic ---
+        let g3Initialized = false;
+
+        function switchMainView(viewId, btn) {
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            btn.classList.add('active');
+            window.scrollTo(0, 0);
+
+            if (viewId === 'view-game3' && !g3Initialized) {
+                initGame3();
+                g3Initialized = true;
+            }
+        }
+
+        function switchTab(type) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.tab-btn[data-type="${type}"]`).classList.add('active');
+            
+            document.querySelectorAll('.template-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`${type}-template`).classList.add('active');
+        }
+
+        function showStep(stepId) {
+            document.getElementById(stepId).classList.add('active');
+            document.getElementById(stepId).scrollIntoView({behavior: "smooth", block: "start"});
+        }
+
+        // --- Game 1 & 2 Drag/Click Logic ---
+        let activePill = null;
+        let pilledCounts = {
+            'box-l-title': 0, 'box-l-lead': 0, 'box-l-body1': 0, 'box-l-body2': 0, 'box-l-offer': 0, 'box-l-end': 0,
+            'box-t-title': 0, 'box-t-lead': 0, 'box-t-body1': 0, 'box-t-body2': 0, 'box-t-offer': 0, 'box-t-end': 0
+        };
+
+        function selectPill(id, el) {
+            document.querySelectorAll('.info-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            activePill = id;
+        }
+
+        function dropPill(boxEl, boxId, expectedIds, gameId) {
+            if (!activePill) return;
+            
+            if (expectedIds.includes(activePill)) {
+                updateScore(gameId, 2, boxEl);
+                let pillEl = document.getElementById(activePill);
+                pillEl.classList.add('placed'); 
+                
+                let placedText = document.createElement('div');
+                placedText.className = 'placed-pill';
+                placedText.innerText = '✔ ' + pillEl.innerText;
+                boxEl.appendChild(placedText);
+                
+                pilledCounts[boxId]++;
+                if (pilledCounts[boxId] === expectedIds.length) {
+                    boxEl.classList.add('filled');
+                }
+                activePill = null;
+                checkG1Complete();
+                checkG2Complete();
+            } else {
+                updateScore(gameId, -1, boxEl);
+                boxEl.style.borderColor = '#ef4444';
+                boxEl.style.animation = 'shake 0.4s';
+                setTimeout(() => {
+                    boxEl.style.borderColor = '';
+                    boxEl.style.animation = '';
+                }, 400);
+            }
+        }
+
+        function checkG1Complete() {
+            if (pilledCounts['box-l-title'] === 2 && pilledCounts['box-l-lead'] === 1 && pilledCounts['box-l-body1'] === 1 && pilledCounts['box-l-body2'] === 1 && pilledCounts['box-l-offer'] === 2 && pilledCounts['box-l-end'] === 2) {
+                document.getElementById('btn-g1-next1').style.display = 'block';
+            }
+        }
+
+        function checkG2Complete() {
+            if (pilledCounts['box-t-title'] === 2 && pilledCounts['box-t-lead'] === 1 && pilledCounts['box-t-body1'] === 1 && pilledCounts['box-t-body2'] === 1 && pilledCounts['box-t-offer'] === 2 && pilledCounts['box-t-end'] === 2) {
+                document.getElementById('btn-g2-next1').style.display = 'block';
+            }
+        }
+
+        function handleSelect(el, gameId, allSelectIds) {
+            if (el.value === 'correct') {
+                updateScore(gameId, 2, el);
+                el.classList.add('correct');
+                el.classList.remove('wrong');
+                el.disabled = true;
+            } else if (el.value === 'wrong') {
+                updateScore(gameId, -1, el);
+                el.classList.add('wrong');
+                el.classList.remove('correct');
+                setTimeout(() => { el.value = ""; el.classList.remove('wrong'); }, 800);
+            }
+            
+            let allCorrect = true;
+            allSelectIds.forEach(id => {
+                let sel = document.getElementById(id);
+                if (sel && sel.value !== 'correct') {
+                    allCorrect = false;
+                }
+            });
+            if (allCorrect) {
+                document.getElementById('btn-' + gameId + '-next2').style.display = 'block';
+            }
+        }
+
+        // --- Score System ---
+        let globalScore = 0;
+        let g1Score = 0;
+        let g2Score = 0;
+        let g3Score = 0;
+
+        function updateScore(gameId, points, el) {
+            globalScore += points;
+            document.getElementById('global-score').innerText = globalScore;
+            
+            if (gameId === 'g1') {
+                g1Score += points;
+                document.getElementById('g1-score').innerText = g1Score;
+            } else if (gameId === 'g2') {
+                g2Score += points;
+                document.getElementById('g2-score').innerText = g2Score;
+            } else if (gameId === 'g3') {
+                g3Score += points;
+                document.getElementById('g3-score').innerText = g3Score;
+            }
+
+            if (el) {
+                let rect = el.getBoundingClientRect();
+                let anim = document.createElement('div');
+                anim.className = 'score-anim ' + (points > 0 ? 'score-plus' : 'score-minus');
+                anim.innerText = points > 0 ? '+' + points : points;
+                anim.style.left = (rect.left + window.scrollX + rect.width / 2) + 'px';
+                anim.style.top = (rect.top + window.scrollY) + 'px';
+                document.body.appendChild(anim);
+                setTimeout(() => anim.remove(), 1000);
+            }
+        }
+
+        function resetGame(gameId) {
+            if (gameId === 'g1') {
+                globalScore -= g1Score; g1Score = 0; document.getElementById('g1-score').innerText = '0';
+            } else if (gameId === 'g2') {
+                globalScore -= g2Score; g2Score = 0; document.getElementById('g2-score').innerText = '0';
+            }
+            document.getElementById('global-score').innerText = globalScore;
+
+            document.getElementById(gameId + '-step2').classList.remove('active');
+            document.getElementById(gameId + '-step3').classList.remove('active');
+            document.getElementById('btn-' + gameId + '-next1').style.display = 'none';
+            document.getElementById('btn-' + gameId + '-next2').style.display = 'none';
+
+            let prefix = gameId === 'g1' ? 'l' : 't';
+            let pIds = ['0_1','0_2','1','2','3','4_1','4_2','5_1','5_2'];
+            pIds.forEach(i => {
+                let pill = document.getElementById(prefix + '_p' + i);
+                if (pill) pill.classList.remove('placed', 'selected');
+            });
+
+            const boxes = ['box-'+prefix+'-title', 'box-'+prefix+'-lead', 'box-'+prefix+'-body1', 'box-'+prefix+'-body2', 'box-'+prefix+'-offer', 'box-'+prefix+'-end'];
+            boxes.forEach(boxId => {
+                let box = document.getElementById(boxId);
+                if (box) {
+                    box.classList.remove('filled');
+                    box.querySelectorAll('.placed-pill').forEach(p => p.remove());
+                }
+                pilledCounts[boxId] = 0;
+            });
+            activePill = null;
+
+            let selects = gameId === 'g1' 
+                ? ['g1-s1', 'g1-s2', 'g1-s3', 'g1-s4', 'g1-s5', 'g1-s6']
+                : ['g2-s1', 'g2-s2', 'g2-s3', 'g2-s4', 'g2-s5', 'g2-s6'];
+            selects.forEach(id => {
+                let el = document.getElementById(id);
+                if (el) { el.value = ""; el.disabled = false; el.classList.remove('correct', 'wrong'); }
+            });
+            
+            document.getElementById(gameId + '-step1').scrollIntoView({behavior: "smooth"});
+        }
+
+        // --- Modals ---
+        const improveData = {
+            l_title: { title: "休閒類：標題公式與詞彙", html: `<div class="improve-item"><div class="improve-phrase">💡 標題寫作策略 (Attention)</div><div class="improve-example"><b>📖 策略：</b>標題的作用是引起目標顧客的注意。推廣信常用「獨家專享式」（突顯尊貴感）或「強調好處式」（點出好處）。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>專屬、萬呎綠洲、享受人生、非同凡響、洗滌心靈。<br><b>📝 應用例句：</b><br>1. 你的萬呎都市綠洲 就在新都會廣場。<br>2. 星空下的奢華假期 探索秘境豪華露營。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>[專屬感] + [活動特點/好處]<br><b>✨ 靈活替換：</b><br>• [你的專屬悠閒時光] 就在 [西貢星空露營區]<br>• [尊尚會員限定] 探索 [日本京都秘境賞櫻之旅]</div></div>` },
+            l_lead: { title: "休閒類：前導段句式", html: `<div class="improve-item"><div class="improve-phrase">💡 前導段策略 (Attention & Interest)</div><div class="improve-example"><b>📖 策略：</b>前導段必須簡潔明快。常用「激發好奇式 / 推論式」（用問句帶出痛點）或「感謝式」（感謝會員支持，帶出專屬活動）。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>千篇一律、透不過氣、誠意邀請、放鬆心情、非同凡響。<br><b>📝 應用例句：</b><br>1. 厭倦千篇一律的住宿？我們誠意邀請你親臨秘境放鬆心情。<br>2. 感謝您對本公司的支持，我們將推出全新體驗，為您帶來非同凡響的假期。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>[痛點提問] + 我們誠意邀請您參加 [項目]。讓您 [核心好處]...<br><b>✨ 靈活替換：</b><br>• [厭倦了都市的喧囂？] 我們誠意邀請您參加 [週末避世禪修營]。讓您 [洗滌心靈]，體驗 [純粹的寧靜]...</div></div>` },
+            l_body1: { title: "休閒類：五感描寫秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 描寫策略 (Interest & Desire)</div><div class="improve-example"><b>📖 策略：</b>不要只條列景點！必須運用「刺激五感」的寫作手法（視覺、聽覺、味覺等），將客觀環境轉化為主觀的正面感受。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>心曠神怡、海浪拍打聲、恬靜舒適、綠意盎然、令人垂涎。<br><b>📝 應用例句：</b><br>1. 漫步於翠綠草坪與花田之間，立刻讓你心曠神怡。<br>2. 聆聽海浪拍打聲入睡，瞬間從繁忙都市步入恬靜大自然。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>【小標題：[特點] + [效果]】<br>這裡設有 [硬體特點]，是為您精心設計的 [環境美稱]。漫步於 [具體場景]，立刻讓您 [正面感受]...<br><b>✨ 靈活替換：</b><br>• 【小標題：無邊際泳池 頂級度假天堂】<br>這裡設有 [無邊際溫水泳池]，是為您精心設計的 [頂級度假天堂]。身處於 [水天一色的絕美海景中]，立刻讓您 [忘卻煩憂]...</div></div>` },
+            l_body2: { title: "休閒類：活動與信任秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 說服策略 (Desire & Conviction)</div><div class="improve-example"><b>📖 策略：</b>描述特色活動時，必須加上「權威認證」或「專業人士帶領」來堅定顧客信心。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>專業指導、信心之選、米芝蓮級、身心舒暢。<br><b>📝 應用例句：</b><br>1. 在專業導師指導下進行瑜伽，享用米芝蓮級營火晚餐，絕對是信心之選。<br>2. 豐富的活動安排，勢必令您身心舒暢，滿載而歸。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>【小標題：[特點] + [效果]】<br>除了飽覽美景，您還可以 [焦點活動]。我們的項目由 [專業人士] 帶領，並獲得 [認證/成績]，絕對是您的信心之選...<br><b>✨ 靈活替換：</b><br>• 【小標題：PADI專業潛水 安全信心之選】<br>除了飽覽美景，您還可以 [體驗深海潛水]。我們的項目由 [PADI 認證資深教練] 帶領，並獲得 [國際安全大獎]，絕對是您的信心之選...</div></div>` },
+            l_offer: { title: "休閒類：莊臣方格秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 排版策略 (Desire & Action)</div><div class="improve-example"><b>📖 策略：</b>推廣信中常使用「莊臣方格 (Johnson Box)」，用方格將最重要的優惠、抽獎資訊框起來，精簡陳述，吸引眼球。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>專享優惠、即場報名、大抽獎、驚喜不絕。<br><b>📝 應用例句：</b>會員專享優惠：出示本信件即獲贈露營裝備。即場報名更可減團費 800 元，並參加大抽獎！</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>凡出席/出示本信件，即可 [優惠1]。即場報名，更可 [優惠2]！<br><b>✨ 靈活替換：</b><br>• 凡出示本信件，即可 [免費升級至海景套房]。即場報名，更可 [獲贈雙人米芝蓮晚餐]！</div></div>` },
+            l_end: { title: "休閒類：促使行動秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 結尾策略 (Action)</div><div class="improve-example"><b>📖 策略：</b>收束段必須具備「召喚行動」的作用。常使用「特定期限式」或「限量名額」，製造稀缺感促使顧客盡快行動，並留下聯絡方式。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>專屬、機會難逢、心動不如行動、竭誠為您服務。<br><b>📝 應用例句：</b>是次露營名額只限 20 個家庭，機會難逢，心動不如行動！如欲查詢詳情，請致電 2888 9999 聯絡。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>[重申最大賣點]，為您帶來 [重申好處]。是次活動 [限額/限時]，機會難逢，心動不如馬上行動！<br><b>✨ 靈活替換：</b><br>• [這趟絕無僅有的極光之旅]，為您帶來 [畢生難忘的浪漫回憶]。是次活動 [僅限首 10 位報名者享有早鳥優惠]，機會難逢...</div></div>` },
+            t_title: { title: "科技類：標題公式與詞彙", html: `<div class="improve-item"><div class="improve-phrase">💡 標題寫作策略 (Attention)</div><div class="improve-example"><b>📖 策略：</b>科技產品標題常結合「產品型號」與「解決痛點的終極好處」，讓顧客一眼看出產品能為他帶來什麼價值。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>全新、秒變、遠離塵囂、私人空間、智能。<br><b>📝 應用例句：</b><br>1. 全新 A3 降噪無線耳機，讓您的雙耳遠離塵囂。<br>2. 全新 FitMagic 健身鏡，讓客廳秒變私人健身房。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>全新 [產品型號] 讓您 [解決痛點的好處]<br><b>✨ 靈活替換：</b><br>• 全新 [X5 智能掃地機器人] 讓您 [從繁重家務中徹底解放]<br>• 全新 [AirPure 空氣清淨機] 讓您 [在家也能大口呼吸森林芬多精]</div></div>` },
+            t_lead: { title: "科技類：前導段句式", html: `<div class="improve-item"><div class="improve-phrase">💡 前導段策略 (Attention & Interest)</div><div class="improve-example"><b>📖 策略：</b>科技類前導段最適合用「推論式/激發好奇式」，先點出顧客生活中的不便（痛點），再帶出產品作為解決方案。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>工作太忙、沒時間、足不出戶、專門為您而設。<br><b>📝 應用例句：</b><br>1. 工作太忙沒時間去健身室？全新 FitMagic 是專門為您而設計的，讓您擁有專業指導。<br>2. 冰箱也能鎖住水分？五星冰箱的創新技術讓你足不出戶也能吃到新鮮食材。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>[痛點描述] 您是否想 [顧客需求]？全新推出的 [產品]，是專門為您而設計的...<br><b>✨ 靈活替換：</b><br>• [每到轉季就狂打噴嚏？] 您是否想 [擁有純淨無敏的居家環境]？全新推出的 [AirPure]...</div></div>` },
+            t_body1: { title: "科技類：科技轉化秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 描寫策略 (Interest & Desire)</div><div class="improve-example"><b>📖 策略：</b>切忌只列出冰冷的科技名詞！必須使用「特點 ➔ 好處」的轉化公式，解釋該項科技如何實際解決顧客的問題。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>內置、動態捕捉、實時糾正、宛如私教、避免受傷。<br><b>📝 應用例句：</b><br>1. 內置 AI 動態捕捉技術，實時糾正運動姿勢，讓您宛如擁有專屬私人教練。<br>2. 運用奈米觸媒科技分解異味，同時鎖住水分達至長效保鮮。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>【小標題：[形容詞] + [產品特點]】<br>本產品內置 [專利技術]，能有效 [運作方式]。以後，不論您 [使用情境]，都能 [獲得好處]。<br><b>✨ 靈活替換：</b><br>• 【小標題：醫學級濾網 享受無敏呼吸】<br>本產品內置 [醫學級 HEPA 濾網]，能有效 [過濾 99.9% 病毒與過敏原]。以後，不論您 [身處客廳還是睡房]，都能 [享受無敏呼吸]...</div></div>` },
+            t_body2: { title: "科技類：數據說服秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 說服策略 (Desire & Conviction)</div><div class="improve-example"><b>📖 策略：</b>科技產品需要「理性支持」。適當引用實驗數據、專家評估或與市面產品比較，能有效堅定顧客的購買信心。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>佔地極小、經實驗測試、顯著提升、信心保證、貼心選擇。<br><b>📝 應用例句：</b><br>1. 佔地極小，快充 10 分鐘即可使用 5 小時，絕對是您的信心保證。<br>2. 經實驗測試，燃脂率顯著提升 40%，是您最貼心的健身選擇。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>【小標題：[形容詞] + [產品特點]】<br>設計上加入了 [便利功能]，讓您 [便利好處]。經實驗測試，本產品 [數據/比較]，絕對是您的信心保證。<br><b>✨ 靈活替換：</b><br>• 【小標題：遠端智控 淨化效能提升】<br>設計上加入了 [手機 App 遠端控制]，讓您 [下班前就能提前開啟淨化]。經實驗測試，本產品 [淨化速度比上代提升 50%]...</div></div>` },
+            t_offer: { title: "科技類：莊臣方格秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 排版策略 (Desire & Action)</div><div class="improve-example"><b>📖 策略：</b>科技產品通常會配合展銷會或門市試用活動，並運用「莊臣方格」凸顯折扣或抽獎，促使顧客到場體驗購買。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>親身體驗、體驗日、尊享優惠、自動參加抽獎。<br><b>📝 應用例句：</b>會員尊享優惠：出示本信件購買 FitMagic 即享 85 折，並自動參加大抽獎，有機會贏取智能手錶！</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>即日起出示本推廣信正本，購買 [產品] 即可 [優惠1]，更可自動參加大抽獎，有機會贏取 [獎品]！<br><b>✨ 靈活替換：</b><br>• 即日起出示本推廣信正本，購買 [X5 掃地機器人] 即可 [獲贈原廠耗材一年份]，更可自動參加大抽獎，有機會贏取 [雙人東京來回機票]！</div></div>` },
+            t_end: { title: "科技類：促使行動秘訣", html: `<div class="improve-item"><div class="improve-phrase">💡 結尾策略 (Action)</div><div class="improve-example"><b>📖 策略：</b>重申產品能帶來的終極理想狀態（如：完美體態、寧靜空間），並明確指出優惠截止日期，催促行動。</div></div><div class="improve-item"><div class="improve-phrase">📌 專業推廣詞彙庫</div><div class="improve-example"><b>📖 詞彙：</b>完美體態、唯有...為您打造、千萬不要錯過。<br><b>📝 應用例句：</b>您的完美體態，唯有 FitMagic 能為您打造！優惠期至本月 15 日，千萬不要錯過，請即致電查詢。</div></div><div class="improve-item"><div class="improve-phrase">💡 套用結構示範</div><div class="improve-example"><b>📝 結構公式：</b>您的 [理想狀態]，唯有 [產品] 能為您打造！優惠期至 [截止日期]，千萬不要錯過。<br><b>✨ 靈活替換：</b><br>• 您的 [一塵不染的舒適居家]，唯有 [X5 掃地機器人] 能為您打造！優惠期至 [本月 31 日]，千萬不要錯過...</div></div>` }
+        };
+
+        function openModal(section) {
+            const modal = document.getElementById('improve-modal');
+            const data = improveData[section];
+            document.getElementById('im-title').innerText = "自我增值：" + data.title;
+            const contentBox = document.getElementById('im-content');
+            contentBox.innerHTML = data.html;
+            
+            contentBox.querySelectorAll('.improve-item').forEach(item => {
+                item.onclick = function() { this.classList.toggle('open'); };
+            });
+            modal.style.display = 'flex';
+        }
+
+        function closeModalWindow() {
+            document.getElementById('improve-modal').style.display = 'none';
+        }
+
+
+        // =====================================================================
+        // --- Game 3: 3D Claw Machine Logic (含錯題回饋與彩帶過關) ---
+        // =====================================================================
+        
+        const g3Questions = [
+            { 
+                text: "想擺脫 {0} 的都市生活？我們誠邀您親臨這片 {1}，享受專屬的寧靜。", 
+                options: ["千篇一律", "萬呎綠洲", "熱鬧繁華", "平凡無奇", "擁擠不堪"], 
+                answers: ["千篇一律", "萬呎綠洲"],
+                explanations: {
+                    "熱鬧繁華": "推廣信前導段常透過對比來凸顯賣點。這裡的痛點應是沉悶乏味，而非熱鬧。",
+                    "平凡無奇": "「平凡無奇」語氣較弱，用「千篇一律」更能強烈表達顧客對改變現狀的渴望。",
+                    "擁擠不堪": "雖然也是都市痛點，但「千篇一律」與後面提供獨特體驗的對比更為精準。"
+                }
+            },
+            { 
+                text: "本產品採用了 {0} 的技術，為您帶來 {1} 的精準指導。", 
+                options: ["獨家專利", "宛如私教", "普通一般", "昂貴複雜", "毫無根據"], 
+                answers: ["獨家專利", "宛如私教"],
+                explanations: {
+                    "普通一般": "推廣信需要突顯產品優勢，用「普通」無法吸引顧客購買。",
+                    "昂貴複雜": "這是負面描述，推廣信應強調產品帶來的正面價值與便利性。",
+                    "毫無根據": "使用這個詞會摧毀顧客對產品的信任！"
+                }
+            },
+            { 
+                text: "漫步於 {0} 的翠綠草坪中，定能讓您感到 {1}，忘卻一切煩憂。", 
+                options: ["綠意盎然", "心曠神怡", "枯燥乏味", "身心疲憊", "吵鬧喧囂"], 
+                answers: ["綠意盎然", "心曠神怡"],
+                explanations: {
+                    "枯燥乏味": "這是在描述美好的自然環境，怎麼會枯燥乏味呢？",
+                    "身心疲憊": "顧客參與休閒活動是為了放鬆，應填入正面的感受詞彙。",
+                    "吵鬧喧囂": "與「翠綠草坪」和「忘卻煩憂」的情境完全矛盾喔！"
+                }
+            },
+            { 
+                text: "這款智能健身鏡具備 {0} 的設計，讓您的客廳 {1}。", 
+                options: ["極致節省空間", "秒變私人健身房", "笨重無比", "變成儲物室", "平平無奇"], 
+                answers: ["極致節省空間", "秒變私人健身房"],
+                explanations: {
+                    "笨重無比": "這是產品的致命缺點，推廣信要強調的是便利與輕巧！",
+                    "變成儲物室": "把客廳變成儲物室聽起來很糟糕，無法激發顧客的購買慾望。",
+                    "平平無奇": "推廣信需要用更具吸引力和變化感的詞彙，如「秒變...」。"
+                }
+            },
+            { 
+                text: "我們的星空露營活動由 {0} 帶領，絕對是您的 {1}。", 
+                options: ["專業導師", "信心之選", "業餘玩家", "無奈之舉", "昂貴消費"], 
+                answers: ["專業導師", "信心之選"],
+                explanations: {
+                    "業餘玩家": "活動需要由「專業人士」帶領，才能讓顧客感到安心並建立信任。",
+                    "無奈之舉": "這傳遞了非常負面的情緒，推廣信應強調這是最好的選擇（信心之選）。",
+                    "昂貴消費": "即使價格高，也應該包裝成「物超所值」或「尊爵享受」，而非直接說是昂貴消費。"
+                }
+            },
+            { 
+                text: "只要出示本推廣信，即可享有會員 {0}，更可自動參加 {1}！", 
+                options: ["尊享優惠", "驚喜大抽獎", "額外收費", "冗長講座", "一般折扣"], 
+                answers: ["尊享優惠", "驚喜大抽獎"],
+                explanations: {
+                    "額外收費": "出示信件通常是為了獲得好處，怎麼會是額外收費呢？這樣會嚇跑顧客的！",
+                    "冗長講座": "顧客不喜歡「冗長」的事物，這無法作為吸引他們行動的誘因。",
+                    "一般折扣": "在推廣信中，即使是一般折扣，也要包裝成專屬的「尊享優惠」以提升顧客尊榮感。"
+                }
+            },
+            { 
+                text: "經專家嚴格測試，本產品的效能 {0}，為您打造 {1} 的生活狀態。", 
+                options: ["顯著提升", "完美無瑕", "嚴重下降", "混亂不堪", "勉強及格"], 
+                answers: ["顯著提升", "完美無瑕"],
+                explanations: {
+                    "嚴重下降": "專家測試的結果如果是效能下降，這封信就變成道歉信而不是推廣信了！",
+                    "混亂不堪": "這無法描繪出顧客使用產品後的「理想生活狀態」。",
+                    "勉強及格": "推廣信需要用更強而有力的詞彙（如：顯著提升）來堅定顧客信心。"
+                }
+            },
+            { 
+                text: "名額只限 20 位，實在是 {0}，請即把握機會，{1}！", 
+                options: ["機會難逢", "心動不如行動", "稀鬆平常", "再等幾天", "隨時都有"], 
+                answers: ["機會難逢", "心動不如行動"],
+                explanations: {
+                    "稀鬆平常": "名額有限就是為了製造「稀缺感」，如果稀鬆平常就沒有人會急著報名了。",
+                    "再等幾天": "收束段的目的是「促使立刻行動」，叫顧客再等幾天會流失訂單！",
+                    "隨時都有": "這破壞了限量 20 位的急迫感，無法有效促動顧客。"
+                }
+            },
+            { 
+                text: "這趟絕無僅有的極光之旅，將為您帶來 {0} 的 {1}。", 
+                options: ["畢生難忘", "浪漫回憶", "平淡無奇", "糟糕體驗", "昂貴花費"], 
+                answers: ["畢生難忘", "浪漫回憶"],
+                explanations: {
+                    "平淡無奇": "既然是「絕無僅有」的極光之旅，帶來的體驗絕對不該是平淡無奇的。",
+                    "糟糕體驗": "推廣信結尾要重申帶給顧客的最大好處，絕對不能是負面體驗！",
+                    "昂貴花費": "不應在結尾提醒顧客花了很多錢，而應強調這筆花費換來的美好價值。"
+                }
+            },
+            { 
+                text: "您的 {0}，唯有 FitMagic 智能健身鏡能為您 {1}！", 
+                options: ["理想體態", "專屬打造", "虛幻夢想", "隨便應付", "平凡身材"], 
+                answers: ["理想體態", "專屬打造"],
+                explanations: {
+                    "虛幻夢想": "推廣信要讓顧客相信他們的理想是可以透過產品實現的，而非虛幻的。",
+                    "隨便應付": "這顯示出對顧客極度不專業、不重視的態度。",
+                    "平凡身材": "顧客買健身鏡是為了追求「更好」的體態，而非維持平凡。"
+                }
+            }
+        ];
+
+        const emojiList = ['😺','🐶','🦊','🐰','🐹','🐼','🐯','🐻','🐷','🐨'];
+        let g3CurrentQ = 0;
+        let g3CurrentBlanks = [];
+        let isClawMoving = false;
+        let clawPos = 50; 
+
+        // Web Audio API
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSynth(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            let now = audioCtx.currentTime;
+
+            if (type === 'move') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(600, now + 0.1);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'drop') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(150, now + 0.5);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
+                osc.start(now); osc.stop(now + 0.5);
+            } else if (type === 'catch') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.setValueAtTime(800, now + 0.1);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'win') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.1);
+                osc.frequency.setValueAtTime(783.99, now + 0.2);
+                osc.frequency.setValueAtTime(1046.50, now + 0.3);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.linearRampToValueAtTime(100, now + 0.3);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            }
+        }
+
+        // 過關慶祝功能 (彩帶 + 彈窗)
+        function triggerWinCelebration() {
+            document.getElementById('g3-win-score').innerText = g3Score;
+            document.getElementById('g3-win-modal').style.display = 'flex';
+            
+            // 觸發彩帶動畫
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function initGame3() {
+            globalScore -= g3Score; 
+            g3Score = 0; 
+            document.getElementById('g3-score').innerText = '0';
+            document.getElementById('global-score').innerText = globalScore;
+            
+            g3CurrentQ = 0;
+            document.getElementById('g3-collection-box').innerHTML = "";
+            renderG3Question();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function renderG3Question() {
+            if (g3CurrentQ >= g3Questions.length) {
+                setTimeout(() => {
+                    triggerWinCelebration();
+                }, 500);
+                return;
+            }
+            g3CurrentBlanks = [];
+            document.getElementById('g3-q-num').innerText = (g3CurrentQ + 1);
+            
+            let qData = g3Questions[g3CurrentQ];
+            let qHTML = qData.text.replace('{0}', '<span class="q-blank" id="g3-b1">1</span>')
+                                  .replace('{1}', '<span class="q-blank" id="g3-b2">2</span>');
+            document.getElementById('g3-q-text').innerHTML = qHTML;
+
+            document.querySelectorAll('.cm-prize').forEach(e => e.remove());
+
+            let ops = [...qData.options];
+            shuffleArray(ops);
+            
+            const glass = document.getElementById('g3-glass');
+            let positions = [25, 40, 55, 70, 85]; 
+            shuffleArray(positions);
+
+            for (let i=0; i<ops.length; i++) {
+                let randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+                let doll = document.createElement('div');
+                doll.className = 'cm-prize';
+                doll.setAttribute('data-emoji', randomEmoji);
+                doll.style.left = positions[i] + '%';
+                
+                let textBadge = document.createElement('div');
+                textBadge.className = 'prize-text';
+                textBadge.innerText = ops[i];
+                
+                doll.appendChild(textBadge);
+                glass.appendChild(doll);
+            }
+            
+            clawPos = 50;
+            document.getElementById('cm-claw').style.left = clawPos + '%';
+            document.getElementById('cm-string').style.height = '25px';
+            document.getElementById('cm-claw').classList.remove('closed');
+            isClawMoving = false;
+        }
+
+        function moveClaw(dir) {
+            if (isClawMoving) return;
+            playSynth('move');
+            clawPos += dir * 5; 
+            if (clawPos < 10) clawPos = 10;
+            if (clawPos > 95) clawPos = 95;
+            document.getElementById('cm-claw').style.left = clawPos + '%';
+        }
+
+        let grabbedDoll = null;
+
+        function dropClaw() {
+            if (isClawMoving) return;
+            isClawMoving = true;
+            playSynth('drop');
+            
+            const clawSys = document.getElementById('cm-claw');
+            const str = document.getElementById('cm-string');
+            const glassHeight = document.getElementById('g3-glass').offsetHeight;
+            
+            str.style.height = (glassHeight - 110) + 'px';
+            
+            setTimeout(() => {
+                let clawRect = document.getElementById('cm-body').getBoundingClientRect();
+                let dolls = document.querySelectorAll('.cm-prize');
+                
+                for(let d of dolls) {
+                    let dRect = d.getBoundingClientRect();
+                    if (Math.abs(clawRect.left + clawRect.width/2 - (dRect.left + dRect.width/2)) < 35) {
+                        grabbedDoll = d;
+                        clawSys.classList.add('closed');
+                        
+                        document.getElementById('cm-body').appendChild(d);
+                        d.style.transition = 'none';
+                        d.style.left = '50%';
+                        d.style.transform = 'translateX(-50%)';
+                        d.style.bottom = '-40px';
+                        
+                        playSynth('catch');
+                        break;
+                    }
+                }
+                
+                str.style.height = '25px';
+                
+                setTimeout(() => {
+                    clawPos = 12;
+                    clawSys.style.left = clawPos + '%';
+                    
+                    setTimeout(() => {
+                        clawSys.classList.remove('closed');
+                        if (grabbedDoll) {
+                            playSynth('drop');
+                            document.getElementById('g3-glass').appendChild(grabbedDoll);
+                            grabbedDoll.style.left = '5px'; 
+                            grabbedDoll.style.bottom = '100px'; 
+                            grabbedDoll.style.transform = 'none';
+                            
+                            setTimeout(() => {
+                                grabbedDoll.style.transition = 'bottom 0.5s ease-in';
+                                grabbedDoll.style.bottom = '-60px'; 
+                            }, 50);
+
+                            setTimeout(() => { checkAnswer(grabbedDoll); }, 600);
+                        } else {
+                            isClawMoving = false;
+                        }
+                    }, 600);
+                }, 1000);
+            }, 1000);
+        }
+
+        function checkAnswer(doll) {
+            let word = doll.querySelector('.prize-text').innerText;
+            let qData = g3Questions[g3CurrentQ];
+            let expectedIndex = g3CurrentBlanks.length;
+            let expectedWord = qData.answers[expectedIndex];
+            
+            let glassEl = document.getElementById('g3-glass');
+
+            if (word === expectedWord) {
+                // Correct
+                playSynth('win');
+                let blankEl = document.getElementById(expectedIndex === 0 ? 'g3-b1' : 'g3-b2');
+                updateScore('g3', 2, blankEl);
+                
+                blankEl.innerText = word;
+                blankEl.classList.add('filled');
+                
+                let emoji = doll.getAttribute('data-emoji');
+                document.getElementById('g3-collection-box').innerHTML += `<div class="col-doll" data-word="${word}">${emoji}</div>`;
+                doll.remove(); 
+                
+                g3CurrentBlanks.push(word);
+                
+                if (g3CurrentBlanks.length === 2) {
+                    setTimeout(() => {
+                        g3CurrentQ++;
+                        renderG3Question();
+                    }, 1500);
+                } else {
+                    resetClawPos();
+                }
+            } else {
+                // Wrong
+                playSynth('wrong');
+                updateScore('g3', -1, glassEl);
+                
+                let explanation = (qData.explanations && qData.explanations[word]) 
+                    ? qData.explanations[word] 
+                    : "這個詞彙不適合這裡的語境，請試試其他更正面、專業的推廣用詞喔！";
+                
+                document.getElementById('g3-error-text').innerText = "您夾到了「" + word + "」\n\n" + explanation;
+                document.getElementById('g3-error-modal').style.display = 'flex';
+                
+                doll.style.transition = 'bottom 0.5s ease-out, left 0.5s ease-out';
+                doll.style.bottom = '35px';
+                doll.style.left = Math.floor(Math.random() * 60 + 25) + '%'; 
+                resetClawPos();
+            }
+            grabbedDoll = null;
+        }
+
+        function resetClawPos() {
+            clawPos = 50;
+            document.getElementById('cm-claw').style.left = clawPos + '%';
+            setTimeout(() => { isClawMoving = false; }, 300);
+        }
+
+    </script>
+</body>
+</html>
