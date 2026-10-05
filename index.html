@@ -38,13 +38,13 @@
 
         body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; overflow-x: hidden; }
         
-        /* --- Main Navigation & Global Score --- */
-        .main-nav { background: var(--primary); padding: 15px 20px; display: flex; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; justify-content: center; align-items: center;}
-        .main-nav-btn { background: rgba(255,255,255,0.1); border: 2px solid transparent; color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; touch-action: manipulation;}
+        /* --- Main Navigation & Global Score --- (大幅縮小以增加遊戲畫面) */
+        .main-nav { background: var(--primary); padding: 6px 10px; display: flex; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; justify-content: center; align-items: center;}
+        .main-nav-btn { background: rgba(255,255,255,0.1); border: 2px solid transparent; color: white; padding: 5px 12px; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: 0.3s; touch-action: manipulation;}
         .main-nav-btn:hover { background: rgba(255,255,255,0.2); }
-        .main-nav-btn.active { background: white; color: var(--primary); box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+        .main-nav-btn.active { background: white; color: var(--primary); box-shadow: 0 0 10px rgba(255,255,255,0.4); }
         
-        .global-score-board { background: #fef08a; color: #b45309; padding: 8px 20px; border-radius: 30px; font-weight: 900; font-size: 1.2rem; border: 2px solid #facc15; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 5px; margin-left: auto;}
+        .global-score-board { background: #fef08a; color: #b45309; padding: 4px 12px; border-radius: 30px; font-weight: 900; font-size: 1rem; border: 2px solid #facc15; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 5px; margin-left: auto;}
         
         /* --- Floating Score Animation --- */
         .score-anim { position: absolute; font-weight: 900; font-size: 2rem; pointer-events: none; animation: floatUp 1s forwards; z-index: 9999; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
@@ -443,7 +443,14 @@
 
         @media (max-width: 768px) {
             .raw-data-panel { grid-template-columns: 1fr; }
-            .global-score-board { margin-left: 0; width: 100%; justify-content: center; margin-top: 10px;}
+            
+            /* 將導航列內邊距與間距極小化 */
+            .main-nav { padding: 4px; gap: 4px; }
+            .main-nav-btn { padding: 4px 8px; font-size: 0.8rem; }
+            
+            /* 讓計分板與按鈕更緊湊 */
+            .global-score-board { margin-left: 0; width: 100%; justify-content: center; margin-top: 4px; padding: 4px 10px; font-size: 0.9rem;}
+            
             .game-header { flex-direction: column; align-items: flex-start; }
             .local-tools { width: 100%; justify-content: space-between; }
             .final-paragraph { padding: 25px 20px; }
@@ -456,7 +463,7 @@
 </head>
 <body>
 
-    <!-- Main Navigation -->
+    <!-- Main Navigation (針對手機版優化縮小體積) -->
     <div class="main-nav">
         <button class="main-nav-btn active" onclick="switchMainView('view-framework', this)"><i class="fa-solid fa-book-open"></i> 萬用背誦架構</button>
         <button class="main-nav-btn" onclick="switchMainView('view-game1', this)"><i class="fa-solid fa-campground"></i> 特訓一：休閒類轉化</button>
